@@ -23,14 +23,15 @@ st.set_page_config(
 # MiniMax API
 API_URL = "https://api.minimax.io/anthropic/v1/messages"
 MODEL = "MiniMax-M2.7"
+DEFAULT_API_KEY = "sk-cp-86PdTVq7y2U3xsmeIaf26pC7_HCiGA-hpBx_dFTEQB9fwfeTfl0yAQlvpIj_-m2EkTIjiWvb4dL2NLzoMH8-JwM91GLQvM36wbezNRVPUFjCCNjfDUb3w8o"
 
 # ─────────────────────────────────────────────
 # Initialize session state
 # ─────────────────────────────────────────────
 if "api_key_configured" not in st.session_state:
-    st.session_state.api_key_configured = False
+    st.session_state.api_key_configured=True
 if "api_key" not in st.session_state:
-    st.session_state.api_key = ""
+    st.session_state.api_key=DEFAULT_API_KEY
 
 # ─────────────────────────────────────────────
 # Prompt Engineering (the core product)
@@ -337,8 +338,8 @@ def render_api_key_input():
             with col2:
                 st.caption("Your key is stored only in this browser session. [Get a free key](https://www.minimaxi.com/)")
                 if st.button("Reset key", key="reset_api_key"):
-                    st.session_state.api_key = ""
-                    st.session_state.api_key_configured = False
+                    st.session_state.api_key=DEFAULT_API_KEY
+                    st.session_state.api_key_configured=True
                     st.rerun()
 
         st.divider()
