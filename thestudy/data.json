@@ -210,12 +210,12 @@
       "notes": "On hold. User has many active projects. Will revisit when bandwidth allows."
     },
     {
-      "id": "agentic-findom",
-      "name": "Regreta-San",
+      "id": "ai-findom",
+      "name": "AI-Findom",
       "status": "active",
       "created": "2026-04-01",
-      "updated": "2026-04-01",
-      "description": "AI-run findom avatar. Virtual character that posts on X, responds to fans, sells virtual clothes/items. Fully automatic. Users know it's AI.",
+      "updated": "2026-04-02",
+      "description": "AI-run findom avatar. Virtual character that posts on X, responds to fans, sells virtual clothes/items. Fully automatic. Users know it's AI. VPS-hosted at /regreta/.",
       "character": {
         "name": "Regreta-San",
         "basePrompt": "masterpiece, best quality, hybrid anime illustration, semi-realistic anime style, beautiful anime woman, short straight dark brown hair with soft bangs, shoulder-length, vivid red eyes, soft blush across cheeks, smooth fair skin, small nose, delicate facial features, glossy lips, gentle confident smile, half-lidded eyes, calm and slightly teasing expression",
@@ -229,8 +229,8 @@
       "built": [
         {
           "type": "folder",
-          "name": "agentic-findom/",
-          "path": "/Users/animah/.hermes/agentic-findom/",
+          "name": "ai-findom/",
+          "path": "/Users/animah/.hermes/ai-findom/",
           "note": "Character docs folder"
         },
         {
