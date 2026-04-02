@@ -145,7 +145,7 @@ def generate_responses(prompt: str) -> str:
 
     payload = {
         "model": MODEL,
-        "max_tokens": 800,
+        "max_tokens": 1500,
         "temperature": 0.8,
         "thinking": {
             "type": "off"
