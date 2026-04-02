@@ -35,6 +35,8 @@ deploy_repeatly() {
     log "Deploying Repeatly..."
     mkdir -p /var/www/repeatly
     cp repeatly/app.py /var/www/repeatly/
+    mkdir -p /root/repeatly
+    cp repeatly/app.py /root/repeatly/
     log "Repeatly deployed."
 }
 
