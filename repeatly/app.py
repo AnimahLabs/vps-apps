@@ -314,36 +314,10 @@ def render_header():
 def render_api_key_input():
     """Render API key input if not configured."""
     if not st.session_state.get("api_key_configured", False):
-        st.warning("⚠️ To use Repeatly, you need a MiniMax API key. Get one free at https://www.minimaxi.com/")
+        # If no key configured, use the default
+        st.session_state.api_key = DEFAULT_API_KEY
+        st.session_state.api_key_configured = True
 
-        with st.container():
-            st.markdown("**Enter your MiniMax API Key**")
-            api_key_input = st.text_input(
-                "API Key",
-                type="password",
-                placeholder="Enter your MiniMax API key...",
-                label_visibility="collapsed",
-                key="api_key_input_field"
-            )
-
-            col1, col2 = st.columns([1, 2])
-            with col1:
-                if st.button("Save API Key", type="primary", use_container_width=True):
-                    if api_key_input.strip():
-                        st.session_state.api_key = api_key_input.strip()
-                        st.session_state.api_key_configured = True
-                        st.rerun()
-                    else:
-                        st.error("Please enter an API key")
-            with col2:
-                st.caption("Your key is stored only in this browser session. [Get a free key](https://www.minimaxi.com/)")
-                if st.button("Reset key", key="reset_api_key"):
-                    st.session_state.api_key=DEFAULT_API_KEY
-                    st.session_state.api_key_configured=True
-                    st.rerun()
-
-        st.divider()
-        return False
     return True
 
 
