@@ -107,16 +107,11 @@ def build_prompt(restaurant_info: dict, review_text: str, brand_voice: str, resp
     if restaurant_info.get("recent_context"):
         brand_notes = f"\nRecent context to be aware of: {restaurant_info.get('recent_context')}"
 
-    return f"""You are a restaurant manager. Write one response to this review:
+    return f"""You are a restaurant manager. Write ONE short response to this review. Be genuine, reference specific details from the review, sound like a real person.
 
-{restaurant_info.get('restaurant_name', 'The restaurant')} - {restaurant_info.get('vibe', 'casual')} vibe, {restaurant_info.get('cuisine_type', 'American')} cuisine.
+Restaurant: {restaurant_info.get('restaurant_name', 'The restaurant')} — {restaurant_info.get('vibe', 'casual')} vibe, {restaurant_info.get('cuisine_type', 'American')} cuisine.
 
 Review: "{review_text}"
-
-Write one response that:
-- Matches the sentiment of the review (negative, positive, mixed, or neutral)
-- References specific details mentioned in the review
-- Sounds like a real restaurant manager, not generic corporate language
 
 Write only the response. Nothing else."""
 
@@ -145,7 +140,7 @@ def generate_responses(prompt: str) -> str:
 
     payload = {
         "model": MODEL,
-        "max_tokens": 1500,
+        "max_tokens": 4000,
         "temperature": 0.8,
         "thinking": {
             "type": "off"
