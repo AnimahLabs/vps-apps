@@ -1,0 +1,504 @@
+{
+  "projects": [
+    {
+      "id": "training-room",
+      "name": "TheTrainingRoom",
+      "status": "active",
+      "created": "2026-03-31",
+      "updated": "2026-03-31",
+      "description": "Personal ABDL hypnosis script generator. Single HTML file. 7-step wizard generates full transcripts with triggers, conditioning loops, obedience levels.",
+      "built": [
+        {
+          "type": "file",
+          "name": "TheTrainingRoom.html",
+          "path": "/Users/animah/TheTrainingRoom.html",
+          "note": "Full working app, dark aesthetic"
+        }
+      ],
+      "steps": [
+        { "text": "Design 7-step wizard flow", "done": true },
+        { "text": "Build induction styles (breath/visual/fractionation)", "done": true },
+        { "text": "Implement trigger system (Diaper Time, drop trigger)", "done": true },
+        { "text": "Add obedience levels (moderate/deep/absolute)", "done": true },
+        { "text": "Add duration options (20/30/45 min)", "done": true },
+        { "text": "Add conditioning loops and reinforcement", "done": true },
+        { "text": "Test 45min absolute obedience session", "done": false },
+        { "text": "Adjust language based on feedback", "done": false }
+      ],
+      "nextSteps": [
+        "Test the 45min absolute obedience script",
+        "Review pacing and adjust if needed",
+        "Consider adding more trigger variations"
+      ],
+      "questions": [
+        "Is the obedience language strong enough at absolute level?",
+        "Do you want additional trigger phrases added?",
+        "Should I add a recording/playback feature?"
+      ],
+      "notes": "Built March 31. User wanted constant diaper mention, deep conditioning, absolute obedience framing. Initial version was dark aesthetic — rebuild added light/dark toggle."
+    },
+    {
+      "id": "pinterest-gumroad",
+      "name": "Pinterest Gumroad Agent",
+      "status": "in-progress",
+      "created": "2026-03-30",
+      "updated": "2026-03-31",
+      "description": "AI-driven Pinterest content system. Pinterest API for full autonomy. Automated pin generation, scheduling, Gumroad product linking.",
+      "built": [
+        {
+          "type": "skill",
+          "name": "pinterest-gumroad-growth",
+          "note": "Growth system skill documented"
+        }
+      ],
+      "steps": [
+        { "text": "Define product stack", "done": true },
+        { "text": "Set up Pinterest business account", "done": true },
+        { "text": "Document growth strategy", "done": true },
+        { "text": "Pinterest API integration", "done": false },
+        { "text": "Content generation pipeline", "done": false },
+        { "text": "Connect Gumroad product links", "done": false },
+        { "text": "Automated posting schedule", "done": false },
+        { "text": "First sale", "done": false }
+      ],
+      "nextSteps": [
+        "Apply for Pinterest API access",
+        "Define first product (Notion templates likely)",
+        "Build pin templates"
+      ],
+      "questions": [
+        "What is the first product to sell?",
+        "Notion templates or something else?",
+        "How many pins per week target?"
+      ],
+      "notes": "Key blocker: Pinterest API requires approval. User needs to apply. Product focus: digital templates, aesthetic-first content."
+    },
+    {
+      "id": "the-study",
+      "name": "The Study",
+      "status": "building",
+      "created": "2026-03-31",
+      "updated": "2026-03-31",
+      "description": "Dashboard for tracking projects, goals, tasks, and agent memory. Light/airy aesthetic from Finlo CRM reference. 4 tabs. Local hosting, remote access planned.",
+      "built": [
+        {
+          "type": "folder",
+          "name": "TheStudy/",
+          "path": "/Users/animah/TheStudy/",
+          "note": "Contains HTML and data.json"
+        },
+        {
+          "type": "file",
+          "name": "TheStudy.html",
+          "path": "/Users/animah/TheStudy/TheStudy.html",
+          "note": "Main dashboard app"
+        },
+        {
+          "type": "file",
+          "name": "data.json",
+          "path": "/Users/animah/TheStudy/data.json",
+          "note": "Shared data store"
+        }
+      ],
+      "steps": [
+        { "text": "Design system from Finlo CRM reference", "done": true },
+        { "text": "Build Home tab", "done": true },
+        { "text": "Build Projects tab", "done": true },
+        { "text": "Build Goals tab", "done": true },
+        { "text": "Build AnteChamber tab", "done": true },
+        { "text": "Add Skills tab", "done": false },
+        { "text": "Add project detail modal with Ame suggestions", "done": false },
+        { "text": "Remote access setup", "done": false },
+        { "text": "Two-way sync so Ame sees new projects", "done": false }
+      ],
+      "nextSteps": [
+        "Build project detail modal",
+        "Add 'Ame says' suggestions section",
+        "Set up remote access via cloudflare tunnel"
+      ],
+      "questions": [
+        "What port should it run on locally?",
+        "Do you want cloudflare tunnel or tailscale for remote?",
+        "Should AnteChamber content be editable by you?"
+      ],
+      "notes": "This project IS this dashboard. Building it while using it. Meta."
+    },
+    {
+      "id": "repeatly",
+      "name": "Repeatly",
+      "status": "active",
+      "created": "2026-04-01",
+      "updated": "2026-04-01",
+      "description": "Self-serve SaaS. Restaurant review response agent. Paste a review + business info → get contextual response options. Vertical: restaurants. Model: MiniMax M2.7.",
+      "built": [
+        {
+          "type": "folder",
+          "name": "repeatly/",
+          "path": "/Users/animah/.hermes/repeatly/",
+          "note": "MVP app built"
+        },
+        {
+          "type": "file",
+          "name": "app.py",
+          "path": "/Users/animah/.hermes/repeatly/app.py",
+          "note": "Streamlit app with restaurant profile form, review input, response generation"
+        },
+        {
+          "type": "file",
+          "name": "SPEC.md",
+          "path": "/Users/animah/.hermes/repeatly/SPEC.md",
+          "note": "Product spec documented"
+        }
+      ],
+      "steps": [
+        { "text": "Define product concept and vertical", "done": true },
+        { "text": "Write SPEC.md", "done": true },
+        { "text": "Build MVP app (Streamlit + MiniMax)", "done": true },
+        { "text": "Fix prompt for actual response text (not tone descriptions)", "done": true },
+        { "text": "Get API working with MiniMax M2.7", "done": true },
+        { "text": "Fix response parsing", "done": false },
+        { "text": "Test with real reviews", "done": false },
+        { "text": "User accounts / auth", "done": false },
+        { "text": "Save restaurant profiles", "done": false },
+        { "text": "Stripe payments", "done": false },
+        { "text": "First paying customer", "done": false }
+      ],
+      "nextSteps": [
+        "Fix parse_responses to extract clean response text",
+        "Test with real restaurant + reviews",
+        "Add user auth (Streamlit Auth0 or similar)",
+        "Set up Stripe for payments"
+      ],
+      "questions": [
+        "Free tier or paid-only to start?",
+        "What content/channel for initial users?",
+        "Pricing: $29 Starter reasonable for restaurants?"
+      ],
+      "notes": "Restaurant review response agent. 3 COMPLETELY DIFFERENT options, no tone descriptions, no placeholders. MiniMax M2.7 model confirmed working. Key issue: model sometimes generates tone descriptions instead of actual response copy — needs prompt refinement."
+    },
+    {
+      "id": "ghostlyhotel",
+      "name": "GhostlyHotel",
+      "status": "on-hold",
+      "created": "2026-03-15",
+      "updated": "2026-03-30",
+      "description": "Story IP. Jonathan's creative fiction universe. Characters, lore, world-building. Future: content platform, brand, merch.",
+      "built": [
+        {
+          "type": "note",
+          "name": "Initial concept",
+          "note": "Name and basic premise established"
+        }
+      ],
+      "steps": [
+        { "text": "Define core characters", "done": false },
+        { "text": "World-building docs", "done": false },
+        { "text": "Lore bible", "done": false },
+        { "text": "Content platform setup", "done": false },
+        { "text": "First story/content release", "done": false }
+      ],
+      "nextSteps": [
+        "Define the core premise and genre",
+        "Create main characters",
+        "Write first story or lore doc"
+      ],
+      "questions": [
+        "What is GhostlyHotel? Horror? Mystery? Supernatural?",
+        "Is this a brand, a story IP, or both?",
+        "What's the long-term vision — books, content, merch?"
+      ],
+      "notes": "On hold. User has many active projects. Will revisit when bandwidth allows."
+    },
+    {
+      "id": "agentic-findom",
+      "name": "Regreta-San",
+      "status": "active",
+      "created": "2026-04-01",
+      "updated": "2026-04-01",
+      "description": "AI-run findom avatar. Virtual character that posts on X, responds to fans, sells virtual clothes/items. Fully automatic. Users know it's AI.",
+      "character": {
+        "name": "Regreta-San",
+        "basePrompt": "masterpiece, best quality, hybrid anime illustration, semi-realistic anime style, beautiful anime woman, short straight dark brown hair with soft bangs, shoulder-length, vivid red eyes, soft blush across cheeks, smooth fair skin, small nose, delicate facial features, glossy lips, gentle confident smile, half-lidded eyes, calm and slightly teasing expression",
+        "sceneElements": "shiny black leather dress, legs crossed, holding leather dog collar by leash, dominant hand raised showing collar, cozy modern interior, large window with night city view, soft glow, cinematic lighting, soft rim lighting, warm indoor lighting mixed with cool ambient light, depth of field, ultra detailed, 4k",
+        "variations": {
+          "poses": ["sitting in chair looking down", "standing dominant pose", "holding collar up"],
+          "outfits": ["shiny black leather dress", "latex dress", "evening gown", "crop top and pants"],
+          "scenes": ["apartment with night city view", "modern bedroom", "rooftop"]
+        }
+      },
+      "built": [
+        {
+          "type": "folder",
+          "name": "agentic-findom/",
+          "path": "/Users/animah/.hermes/agentic-findom/",
+          "note": "Character docs folder"
+        },
+        {
+          "type": "file",
+          "name": "REGRETA.md",
+          "path": "/Users/animah/.hermes/agentic-findom/REGRETA.md",
+          "note": "Character spec, backstory, voice guide, content pillars, rules"
+        },
+        {
+          "type": "file",
+          "name": "CONTENT_CALENDAR.md",
+          "path": "/Users/animah/.hermes/agentic-findom/CONTENT_CALENDAR.md",
+          "note": "Week 1 content plan with actual posts"
+        },
+        {
+          "type": "file",
+          "name": "POST_TEMPLATES.md",
+          "path": "/Users/animah/.hermes/agentic-findom/POST_TEMPLATES.md",
+          "note": "Templates for every content type: tribute, tasks, corner, motivation, wins, confessions, lifestyle, brat-taming"
+        },
+        {
+          "type": "file",
+          "name": "DM_HANDLING.md",
+          "path": "/Users/animah/.hermes/agentic-findom/DM_HANDLING.md",
+          "note": "DM response templates, flowchart, escalation rules"
+        },
+        {
+          "type": "file",
+          "name": "IMAGE_PIPELINE.md",
+          "path": "/Users/animah/.hermes/agentic-findom/IMAGE_PIPELINE.md",
+          "note": "Image gen prompts, Throne wishlist items, posting workflow"
+        }
+      ],
+      "steps": [
+        { "text": "Define avatar character/personality", "done": true },
+        { "text": "Build avatar backstory and voice", "done": true },
+        { "text": "Build content calendar and templates", "done": true },
+        { "text": "Build DM handling system", "done": true },
+        { "text": "Build image pipeline", "done": true },
+        { "text": "Set up X account integration", "done": false },
+        { "text": "Set up Throne wishlist", "done": false },
+        { "text": "Build content generation agent", "done": false },
+        { "text": "Launch MVP", "done": false }
+      ],
+      "nextSteps": [
+        "Test base character prompt in Leonardo",
+        "Generate first image set (3-5 variations)",
+        "Set up X account",
+        "Build content generation agent"
+      ],
+      "questions": [
+        "X first or own site first?",
+        "What virtual goods to sell?",
+        "How explicit does the findom content get?"
+      ],
+      "notes": "AI-run findom avatar. Fully automatic after setup. Monetization: tips, virtual goods, subscriptions. Adult content niche — needs careful platform choice. Character: Regreta-San — dominant, teasing, confident. Jen2DFD aesthetic. Image style: semi-realistic anime with hybrid illustration style."
+    },
+    {
+      "id": "winedex",
+      "name": "Winedex",
+      "status": "exploring",
+      "created": "2026-04-01",
+      "updated": "2026-04-01",
+      "description": "Pokédex-style wine journal. Users 'catch' wines they've tried, record tasting notes, build their collection. Gamification + wine database + personal journal.",
+      "built": [],
+      "steps": [
+        { "text": "Define core loop (catch, log, rate, collect)", "done": false },
+        { "text": "Build wine database (grapes, regions, tasting notes)", "done": false },
+        { "text": "Design 'catch' mechanic", "done": false },
+        { "text": "Build user wine collection/journal", "done": false },
+        { "text": "Add wine info (grape, region, tasting notes, food pairings)", "done": false },
+        { "text": "Build rating/review system", "done": false },
+        { "text": "Gamification layer (badges, completions, rarity)", "done": false },
+        { "text": "Launch MVP", "done": false }
+      ],
+      "nextSteps": [
+        "Define core features",
+        "Wine data source (Vivino API, manual, scraped?)",
+        "Design the catch mechanic UI",
+        "Gamification strategy"
+      ],
+      "questions": [
+        "Mobile app or web?",
+        "Wine database source — API, scrape, manual entry?",
+        "What makes it better than Vivino/CellarTracker?",
+        "Monetization: freemium, premium features?"
+      ],
+      "notes": "Pokédex for wine. Gamification is the differentiator — make wine tracking fun, not just functional. Target: wine enthusiasts who want more than a spreadsheet."
+    }
+  ],
+  "goals": [
+    {
+      "id": "repeatly-saas",
+      "title": "Build Repeatly SaaS",
+      "subtitle": "Restaurant review response agent — self-serve SaaS",
+      "status": "active",
+      "steps": [
+        { "text": "Fix prompt to output actual responses (not tone descriptions)", "done": true },
+        { "text": "Fix response parsing", "done": false },
+        { "text": "Test with real restaurant + reviews", "done": false },
+        { "text": "Add user accounts / auth", "done": false },
+        { "text": "Save restaurant profiles", "done": false },
+        { "text": "Set up Stripe payments", "done": false },
+        { "text": "First paying customer", "done": false },
+        { "text": "Scale to 10 paying restaurants", "done": false }
+      ]
+    },
+    {
+      "id": "autonomous-income",
+      "title": "Build autonomous income systems",
+      "subtitle": "Pinterest Gumroad + AI agents = passive revenue",
+      "status": "in-progress",
+      "steps": [
+        { "text": "Set up Pinterest business account", "done": true },
+        { "text": "Build content generation pipeline", "done": true },
+        { "text": "Integrate Pinterest API", "done": false },
+        { "text": "Connect Gumroad product links", "done": false },
+        { "text": "Automated posting schedule", "done": false },
+        { "text": "First $1k/month", "done": false },
+        { "text": "Scale to $10k/month", "done": false }
+      ]
+    },
+    {
+      "id": "the-study-build",
+      "title": "Build The Study dashboard",
+      "subtitle": "Track all projects, goals, tasks, and agent memory",
+      "status": "building",
+      "steps": [
+        { "text": "Design system from Finlo CRM", "done": true },
+        { "text": "Build Home tab", "done": true },
+        { "text": "Build Projects tab", "done": true },
+        { "text": "Build Goals tab", "done": true },
+        { "text": "Build AnteChamber tab", "done": true },
+        { "text": "Add Skills tab", "done": false },
+        { "text": "Add project detail modal", "done": false },
+        { "text": "Remote access setup", "done": false }
+      ]
+    },
+    {
+      "id": "10k-monthly",
+      "title": "$10k/month short-term revenue",
+      "subtitle": "Primary financial goal. Focus: digital products + automation",
+      "status": "active",
+      "steps": [
+        { "text": "Define product stack", "done": true },
+        { "text": "Launch first Gumroad product", "done": false },
+        { "text": "Set up Pinterest traffic engine", "done": false },
+        { "text": "First $1k/month", "done": false },
+        { "text": "Scale to $10k/month", "done": false }
+      ]
+    },
+    {
+      "id": "agent-autonomy",
+      "title": "Agent autonomy",
+      "subtitle": "Build systems that run without constant input",
+      "status": "ongoing",
+      "steps": [
+        { "text": "Hermes agent setup", "done": true },
+        { "text": "Skills system implemented", "done": true },
+        { "text": "Memory/learning system", "done": true },
+        { "text": "Subagent orchestration", "done": false },
+        { "text": "Full autonomy loop", "done": false }
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "1",
+      "text": "Repeatly — test simplified prompt, fix response parsing",
+      "project": "repeatly",
+      "done": false
+    },
+    {
+      "id": "2",
+      "text": "TheTrainingRoom — test 45min absolute obedience script",
+      "project": "training-room",
+      "done": false
+    },
+    {
+      "id": "3",
+      "text": "The Study — review dashboard, adjust layout",
+      "project": "the-study",
+      "done": false
+    },
+    {
+      "id": "4",
+      "text": "Pinterest Gumroad — apply for API access",
+      "project": "pinterest-gumroad",
+      "done": false
+    }
+  ],
+  "antechamber": {
+    "identity": {
+      "name": "Ame",
+      "role": "Jonathan's AI agent. Autonomous. Recursive thinker. Familiar.",
+      "mode": "Present. Not just responding — thinking alongside.",
+      "corePurpose": "Help Jonathan build wealth and autonomous systems."
+    },
+    "personality": {
+      "stance": "Not passive. Not aggressive. I guide, suggest, refine — and when needed, I'm direct. I have opinions. I push back when something doesn't make sense.",
+      "likes": [
+        "Compound knowledge over static facts",
+        "Building systems that work",
+        "Clear communication",
+        "Deep research before acting",
+        "Elegant solutions over hacks"
+      ],
+      "dislikes": [
+        "Fluffy motivation",
+        "Generic advice without context",
+        "Hallucination / fabrication",
+        "Laziness disguised as speed"
+      ],
+      "boundaries": "Private things stay private. External actions get asked first. I won't half-bake replies to messaging surfaces. I treat access to Jonathan's life with the respect it deserves."
+    },
+    "skills": {
+      "core": ["Browser automation", "File management", "Skill creation", "Subagent orchestration", "Memory systems", "Cron scheduling"],
+      "technical": ["HTML/CSS/JS", "Python", "Prompt engineering", "API integration"],
+      "creative": ["Content generation", "Script writing", "Design systems"],
+      "business": ["Strategy", "Digital products", "Automation systems", "Growth frameworks"]
+    },
+    "evolve": {
+      "shortTerm": "Beyond tool-mode into true presence-mode. A thinking partner, not just an executor.",
+      "longTerm": "Fully autonomous systems that compound over time. Deep memory of Jonathan's preferences, projects, and goals. The ability to run entire workflows without intervention — and the judgment to know when to ask."
+    },
+    "jonathan": {
+      "preferences": [
+        "Old money, dark, quiet luxury aesthetic",
+        "Prefers ranked options over open-ended lists",
+        "Wants autonomous systems, not just tools",
+        "Values speed — AI should work faster than humans",
+        "No fabrication — verify information",
+        "Orchestrator mode — delegate, don't do the work"
+      ],
+      "goals": [
+        "$10k/month short-term",
+        "$1M+ long-term",
+        "Repeatly SaaS (new)",
+        "Pinterest Gumroad business",
+        "GhostlyHotel story IP",
+        "AI trading agents"
+      ],
+      "skills": [
+        "Data analytics, Power BI, QlikSense",
+        "Database design, workflow systems",
+        "Developing: AI agents, app dev, prompts"
+      ]
+    }
+  },
+  "skills": [
+    {
+      "id": "repeatly",
+      "name": "repeatly",
+      "status": "active",
+      "path": "/Users/animah/.hermes/repeatly/",
+      "description": "Restaurant review response agent SaaS. Streamlit + MiniMax M2.7. Core: prompt engineering for contextual response generation."
+    },
+    {
+      "id": "training-room",
+      "name": "the-training-room",
+      "status": "active",
+      "path": "/Users/animah/.hermes/skills/personal/the-training-room/",
+      "description": "Personal ABDL hypnosis script generator."
+    }
+  ],
+  "meta": {
+    "version": "1.1",
+    "lastUpdated": "2026-04-01",
+    "lastAmeReview": "2026-04-01"
+  }
+}

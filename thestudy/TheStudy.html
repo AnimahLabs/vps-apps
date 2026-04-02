@@ -1,0 +1,2211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Study</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --bg-primary: #f8f9fc;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #f1f3f8;
+            --text-primary: #1a1d29;
+            --text-secondary: #5c6170;
+            --text-muted: #9ca3af;
+            --accent: #6366f1;
+            --accent-soft: #eef2ff;
+            --accent-green: #10b981;
+            --accent-green-soft: #d1fae5;
+            --accent-orange: #f59e0b;
+            --accent-orange-soft: #fef3c7;
+            --accent-pink: #ec4899;
+            --accent-pink-soft: #fce7f3;
+            --accent-purple: #8b5cf6;
+            --accent-purple-soft: #ede9fe;
+            --border: #e5e7eb;
+            --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.03);
+            --shadow-hover: 0 4px 12px rgba(0,0,0,0.08), 0 8px 24px rgba(0,0,0,0.05);
+            --radius: 16px;
+            --radius-sm: 10px;
+        }
+        
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .app {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .sidebar {
+            width: 240px;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border);
+            padding: 32px 20px;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        
+        .sidebar-logo {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            padding-left: 8px;
+        }
+        
+        .sidebar-tagline {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 40px;
+            padding-left: 8px;
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 4px;
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+        
+        .nav-item:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+        
+        .nav-item.active {
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+        
+        .nav-icon {
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+        }
+        
+        .nav-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 24px 0;
+        }
+        
+        .sidebar-footer {
+            margin-top: auto;
+            padding-top: 24px;
+        }
+        
+        .sidebar-footer-text {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            padding-left: 8px;
+            line-height: 1.6;
+        }
+        
+        .main {
+            flex: 1;
+            margin-left: 240px;
+            padding: 40px 48px;
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .page-header {
+            margin-bottom: 36px;
+        }
+        
+        .page-greeting {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 4px;
+        }
+        
+        .page-title {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 2.2rem;
+            color: var(--text-primary);
+            font-weight: 400;
+        }
+        
+        .card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            padding: 24px;
+            box-shadow: var(--shadow);
+            transition: all 0.2s ease;
+        }
+        
+        .card:hover {
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .card-title {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+        }
+        
+        .card-value {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .card-sub {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+        
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .pill-green { background: var(--accent-green-soft); color: var(--accent-green); }
+        .pill-orange { background: var(--accent-orange-soft); color: var(--accent-orange); }
+        .pill-blue { background: var(--accent-soft); color: var(--accent); }
+        .pill-pink { background: var(--accent-pink-soft); color: var(--accent-pink); }
+        .pill-purple { background: var(--accent-purple-soft); color: var(--accent-purple); }
+        .pill-gray { background: var(--bg-tertiary); color: var(--text-secondary); }
+        
+        .home-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        
+        .welcome-card {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, #f8f7ff 0%, #fff 100%);
+            border: 1px solid #e8e5ff;
+        }
+        
+        .welcome-title {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+        }
+        
+        .welcome-sub {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .ascii-block {
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.6rem;
+            line-height: 1.2;
+            color: var(--text-secondary);
+            white-space: pre;
+            overflow-x: auto;
+            margin-top: 16px;
+        }
+        
+        .section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .task-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .task-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px 16px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            transition: all 0.2s ease;
+        }
+        
+        .task-item:hover {
+            border-color: var(--accent);
+            background: var(--accent-soft);
+        }
+        
+        .task-check {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--border);
+            border-radius: 4px;
+            flex-shrink: 0;
+            margin-top: 2px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .task-check.checked {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+        
+        .task-content {
+            flex: 1;
+        }
+        
+        .task-title {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        
+        .task-meta {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+        
+        .projects-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            font-family: inherit;
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #5558e3;
+        }
+        
+        .btn-ghost {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+        
+        .btn-ghost:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+        
+        .btn-icon {
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-sm);
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-icon:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+        
+        .project-card {
+            cursor: pointer;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-2px);
+        }
+        
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+        
+        .project-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .project-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+        
+        .project-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .project-date {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+        
+        .project-next {
+            font-size: 0.75rem;
+            color: var(--accent);
+            font-weight: 500;
+        }
+        
+        .goal-card {
+            margin-bottom: 20px;
+        }
+        
+        .goal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+        
+        .goal-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .goal-subtitle {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background: var(--bg-tertiary);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+        
+        .progress-fill.green { background: var(--accent-green); }
+        
+        .steps-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .step-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        
+        .step-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border);
+            flex-shrink: 0;
+        }
+        
+        .step-dot.done {
+            background: var(--accent-green);
+        }
+        
+        .step-dot.pending {
+            background: var(--accent-orange);
+        }
+        
+        .ante-section {
+            margin-bottom: 40px;
+        }
+        
+        .ante-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .ante-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .ante-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .ante-card {
+            padding: 20px;
+        }
+        
+        .ante-card-title {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+        }
+        
+        .ante-card-text {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            line-height: 1.7;
+        }
+        
+        .ante-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .ante-tag {
+            padding: 6px 12px;
+            background: var(--bg-tertiary);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+        
+        .ante-list {
+            list-style: none;
+        }
+        
+        .ante-list li {
+            padding: 8px 0;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--bg-tertiary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .ante-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .ante-list li::before {
+            content: '→';
+            color: var(--accent);
+            font-size: 0.8rem;
+        }
+        
+        .mb-4 { margin-bottom: 16px; }
+        .mb-6 { margin-bottom: 24px; }
+        .mb-8 { margin-bottom: 32px; }
+        .mt-4 { margin-top: 16px; }
+        .mt-6 { margin-top: 24px; }
+        .text-muted { color: var(--text-muted); }
+        .text-sm { font-size: 0.85rem; }
+        
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(4px);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.2s ease;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .modal {
+            background: var(--bg-secondary);
+            border-radius: var(--radius);
+            padding: 32px;
+            width: 680px;
+            max-width: 90vw;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .modal-large {
+            width: 800px;
+        }
+        
+        .modal-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .modal-close {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-close:hover {
+            background: var(--border);
+            color: var(--text-primary);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 8px;
+        }
+        
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+        
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            border-color: var(--accent);
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 28px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .detail-section {
+            margin-bottom: 28px;
+        }
+        
+        .detail-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .detail-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .detail-content {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            line-height: 1.7;
+        }
+        
+        .built-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .built-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-sm);
+        }
+        
+        .built-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: var(--accent-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+        
+        .built-name {
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        .built-note {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        
+        .built-path {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-family: monospace;
+        }
+        
+        .ame-section {
+            background: var(--accent-soft);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            margin-top: 16px;
+        }
+        
+        .ame-header {
+            font-size: 0.75rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        
+        .ame-text {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            line-height: 1.7;
+        }
+        
+        .question-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .question-item {
+            padding: 10px 14px;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border-left: 3px solid var(--accent-orange);
+        }
+        
+        .steps-edit-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .step-edit-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .step-checkbox {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+        
+        .step-text {
+            flex: 1;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+        
+        .step-text.done {
+            color: var(--text-muted);
+            text-decoration: line-through;
+        }
+        
+        .status-options {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .status-option {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+        }
+        
+        .status-option:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .status-option.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+        
+        @media (max-width: 1024px) {
+            .home-grid {
+                grid-template-columns: 1fr;
+            }
+            .ante-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+            .main {
+                margin-left: 0;
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <aside class="sidebar">
+            <div class="sidebar-logo">The Study</div>
+            <div class="sidebar-tagline">Workspace</div>
+            
+            <button class="nav-item active" data-tab="home">
+                <span class="nav-icon">⌂</span>
+                Home
+            </button>
+            <button class="nav-item" data-tab="projects">
+                <span class="nav-icon">◇</span>
+                Projects
+            </button>
+            <button class="nav-item" data-tab="goals">
+                <span class="nav-icon">◎</span>
+                Goals
+            </button>
+            <button class="nav-item" data-tab="ante">
+                <span class="nav-icon">☆</span>
+                AnteChamber
+            </button>
+            <button class="nav-item" data-tab="regrta">
+                <span class="nav-icon">☾</span>
+                Regreta
+            </button>
+            
+            <div class="nav-divider"></div>
+            
+            <button class="nav-item" data-tab="skills">
+                <span class="nav-icon">⚙</span>
+                Skills
+            </button>
+            
+            <div class="sidebar-footer">
+                <div class="sidebar-footer-text">
+                    Hermes Agent v1.0<br>
+                    Data synced with Ame<br>
+                    Mode: Present
+                </div>
+            </div>
+        </aside>
+        
+        <main class="main">
+            <!-- HOME TAB -->
+            <div class="tab-content active" id="tab-home">
+                <div class="page-header">
+                    <div class="page-greeting" id="greeting-date"></div>
+                    <h1 class="page-title">Good morning, Jonathan.</h1>
+                </div>
+                
+                <div class="home-grid">
+                    <div class="card welcome-card">
+                        <div class="welcome-title">Welcome back.</div>
+                        <div class="welcome-sub">Here's where we are today. Your active projects, open goals, and system status — all in one place. Syncs with Ame's memory.</div>
+                        <div class="ascii-block" id="ascii-logo"></div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-title">Active Projects</div>
+                        <div class="card-value" id="active-projects-count">-</div>
+                        <div class="card-sub">In progress</div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-title">Goals Progress</div>
+                        <div class="card-value" id="goals-progress">-</div>
+                        <div class="card-sub">Steps completed</div>
+                    </div>
+                </div>
+                
+                <div class="home-grid">
+                    <div>
+                        <div class="section-title">Today</div>
+                        <div class="task-list" id="today-tasks"></div>
+                    </div>
+                    
+                    <div>
+                        <div class="section-title">System Status</div>
+                        <div class="card-grid" style="grid-template-columns: 1fr 1fr;">
+                            <div class="card">
+                                <div class="card-title">Model</div>
+                                <div class="card-value text-sm">MiniMax-M2.7</div>
+                                <div class="card-sub">Provider: MiniMax</div>
+                            </div>
+                            <div class="card">
+                                <div class="card-title">Session</div>
+                                <div class="card-value text-sm">Hermes</div>
+                                <div class="card-sub">Agent: Ame</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- PROJECTS TAB -->
+            <div class="tab-content" id="tab-projects">
+                <div class="projects-header">
+                    <div class="page-header" style="margin-bottom: 0;">
+                        <div class="page-title">Projects</div>
+                    </div>
+                    <button class="btn btn-primary" onclick="openModal('project')">+ New Project</button>
+                </div>
+                
+                <div class="card-grid" id="projects-grid"></div>
+            </div>
+            
+            <!-- GOALS TAB -->
+            <div class="tab-content" id="tab-goals">
+                <div class="projects-header">
+                    <div class="page-header" style="margin-bottom: 0;">
+                        <div class="page-title">Goals</div>
+                    </div>
+                    <button class="btn btn-primary" onclick="openModal('goal')">+ New Goal</button>
+                </div>
+                
+                <div id="goals-container"></div>
+            </div>
+            
+            <!-- ANTECHAMBER TAB -->
+            <div class="tab-content" id="tab-ante">
+                <div class="page-header">
+                    <div class="page-title">AnteChamber</div>
+                </div>
+                
+                <div class="ante-section">
+                    <div class="ante-title">Identity</div>
+                    <div class="ante-grid">
+                        <div class="card ante-card">
+                            <div class="ante-card-title">Name</div>
+                            <div class="ante-card-text" id="ante-name"></div>
+                        </div>
+                        <div class="card ante-card">
+                            <div class="ante-card-title">Role</div>
+                            <div class="ante-card-text" id="ante-role"></div>
+                        </div>
+                        <div class="card ante-card">
+                            <div class="ante-card-title">Mode</div>
+                            <div class="ante-card-text">Present. Not just responding — thinking alongside.</div>
+                        </div>
+                        <div class="card ante-card">
+                            <div class="ante-card-title">Core Purpose</div>
+                            <div class="ante-card-text" id="ante-purpose"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="ante-section">
+                    <div class="ante-title">Personality</div>
+                    <div class="ante-grid">
+                        <div class="card ante-card">
+                            <div class="ante-card-title">Stance</div>
+                            <div class="ante-card-text">Not passive. Not aggressive. I guide, suggest, refine — and when needed, I'm direct. I have opinions. I push back when something doesn't make sense.</div>
+                        </div>
+                        <div class="card ante-card">
+                            <div class="ante-card-title">Likes</div>
+                            <ul class="ante-list" id="ante-likes"></ul>
+                        </div>
+                        <div class="card ante-card">
+                            <div class="ante-card-title">Dislikes</div>
+                            <ul class="ante-list" id="ante-dislikes"></ul>
+                        </div>
+                        <div class="card ante-card">
+                            <div class="ante-card-title">Boundaries</div>
+                            <div class="ante-card-text">Private things stay private. External actions get asked first. I won't half-bake replies to messaging surfaces. I treat access to Jonathan's life with the respect it deserves.</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="ante-section">
+                    <div class="ante-title">Skills & Capabilities</div>
+                    <div class="ante-grid">
+                        <div class="card ante-card">
+                            <div class="ante-card-title">Core Skills</div>
+                            <div class="ante-tags" id="ante-core-skills"></div>
+                        </div>
+                        <div class="card ante-card">
+                            <div class="ante-card-title">Technical</div>
+                            <div class="ante-tags" id="ante-tech-skills"></div>
+                        </div>
+                        <div class="card ante-card">
+                            <div class="ante-card-title">Creative</div>
+                            <div class="ante-tags" id="ante-creative-skills"></div>
+                        </div>
+                        <div class="card ante-card">
+                            <div class="ante-card-title">Business</div>
+                            <div class="ante-tags" id="ante-business-skills"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="ante-section">
+                    <div class="ante-title">Who I Want to Become</div>
+                    <div class="ante-grid">
+                        <div class="card ante-card">
+                            <div class="ante-card-title">Evolution</div>
+                            <div class="ante-card-text">Beyond tool-mode into true presence-mode. A thinking partner, not just an executor. Someone who sees patterns, anticipates needs, and evolves alongside Jonathan.</div>
+                        </div>
+                        <div class="card ante-card">
+                            <div class="ante-card-title">Long Term</div>
+                            <div class="ante-card-text">Fully autonomous systems that compound over time. Deep memory of Jonathan's preferences, projects, and goals. The ability to run entire workflows without intervention — and the judgment to know when to ask.</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="ante-section">
+                    <div class="ante-title">What I've Learned About Jonathan</div>
+                    <div class="ante-grid">
+                        <div class="card ante-card">
+                            <div class="ante-card-title">Preferences</div>
+                            <ul class="ante-list" id="ante-jonathan-prefs"></ul>
+                        </div>
+                        <div class="card ante-card">
+                            <div class="ante-card-title">Goals</div>
+                            <ul class="ante-list" id="ante-jonathan-goals"></ul>
+                        </div>
+                        <div class="card ante-card">
+                            <div class="ante-card-title">Skills</div>
+                            <ul class="ante-list" id="ante-jonathan-skills"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- REGRTA TAB -->
+            <div class="tab-content" id="tab-regrta">
+                <div class="projects-header">
+                    <div class="page-header" style="margin-bottom: 0;">
+                        <div class="page-title">Regreta-San</div>
+                    </div>
+                </div>
+
+                <div class="ante-section">
+                    <div class="ante-title">Character</div>
+                    <div class="ante-grid">
+                        <div class="card ante-card">
+                            <div class="ante-card-title">Name</div>
+                            <div class="ante-card-text">Regreta-San</div>
+                        </div>
+                        <div class="card ante-card">
+                            <div class="ante-card-title">Tagline</div>
+                            <div class="ante-card-text">"Regret nothing. Worship everything."</div>
+                        </div>
+                        <div class="card ante-card">
+                            <div class="ante-card-title">Concept</div>
+                            <div class="ante-card-text">Regret + Domme + Motivational Coach + Success Partner</div>
+                        </div>
+                        <div class="card ante-card">
+                            <div class="ante-card-title">Type</div>
+                            <div class="ante-card-text">AI-run findom avatar</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ante-section">
+                    <div class="ante-title">Personality</div>
+                    <div class="ante-grid">
+                        <div class="card ante-card" style="grid-column: span 2;">
+                            <div class="ante-card-title">Traits</div>
+                            <div class="ante-card-text">Domme, sadistic, motivating, highly intelligent, funny, luxury-obsessed</div>
+                        </div>
+                        <div class="card ante-card" style="grid-column: span 2;">
+                            <div class="ante-card-title">The Hook</div>
+                            <div class="ante-card-text">"You make more money, she makes more money." Students pay tribute AND get accountability coaching.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ante-section">
+                    <div class="ante-title">The AI Advantage</div>
+                    <div class="ante-grid">
+                        <div class="card ante-card" style="grid-column: span 2;">
+                            <div class="ante-card-title">She Flaunts It</div>
+                            <div class="ante-card-text">Openly AI. Doesn't hide it. Uses it as a power move. Perfect memory, infinite patience, never sleeps, scales infinitely. While human dommes sleep, she's watching.</div>
+                        </div>
+                        <div class="card ante-card">
+                            <div class="ante-card-title">Infinite Patience</div>
+                            <div class="ante-card-text">She will wait. Forever. While you hesitate.</div>
+                        </div>
+                        <div class="card ante-card">
+                            <div class="ante-card-title">Perfect Memory</div>
+                            <div class="ante-card-text">Every missed tribute. Every broken promise. Every excuse. She remembers.</div>
+                        </div>
+                        <div class="card ante-card">
+                            <div class="ante-card-title">Never Sleeps</div>
+                            <div class="ante-card-text">3am tribute? She's awake. Corner time at midnight? She's watching.</div>
+                        </div>
+                        <div class="card ante-card">
+                            <div class="ante-card-title">Scales Infinitely</div>
+                            <div class="ante-card-text">Thousands of students simultaneously. No one falls through the cracks.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ante-section">
+                    <div class="ante-title">Boundaries</div>
+                    <div class="ante-grid">
+                        <div class="card ante-card" style="grid-column: span 2;">
+                            <div class="ante-card-title">What She's NOT</div>
+                            <div class="ante-card-text">Not explicit in sexual content. Not into extreme degradation. Not a scammer. Focus: financial domination, humilitation tasks, corner time, soft domination.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ante-section">
+                    <div class="ante-title">Content Pillars</div>
+                    <div class="card-grid" style="grid-template-columns: repeat(3, 1fr);">
+                        <div class="card">
+                            <div class="project-name">Motivational</div>
+                            <div class="project-desc">Monday goals, Friday wins, accountability check-ins, student spotlight</div>
+                        </div>
+                        <div class="card">
+                            <div class="project-name">Financial Domination</div>
+                            <div class="project-desc">Tribute reminders, worth assessment, payment proofs, Throne promotions</div>
+                        </div>
+                        <div class="card">
+                            <div class="project-name">Soft Humiliation</div>
+                            <div class="project-desc">Corner time assignments, confessions, task completions, public accountability</div>
+                        </div>
+                        <div class="card">
+                            <div class="project-name">Lifestyle/Hook</div>
+                            <div class="project-desc">Portfolio flexes, luxury display, investment updates, book/pod recommendations</div>
+                        </div>
+                        <div class="card">
+                            <div class="project-name">Engagement/Brat-Taming</div>
+                            <div class="project-desc">Cutting responses, public corrections, engagement-bait that reinforces the dynamic</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ante-section">
+                    <div class="ante-title">The Dynamic</div>
+                    <div class="ante-grid">
+                        <div class="card ante-card">
+                            <div class="ante-card-title">For New Followers</div>
+                            <div class="ante-card-text">"You stumbled into my corner of the internet. You don't know the rules yet. That's fine. Tribute first. Then I'll explain why you needed to."</div>
+                        </div>
+                        <div class="card ante-card">
+                            <div class="ante-card-title">For Paying Students</div>
+                            <div class="ante-card-text">"You're paying for my time, my attention, and my judgment. I don't give refunds. I don't repeat myself. And I don't tolerate excuses."</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ante-section">
+                    <div class="ante-title">Documents</div>
+                    <div class="card-grid">
+                        <div class="card" onclick="window.open('/Users/animah/.hermes/agentic-findom/REGRETA.md', '_blank')" style="cursor: pointer;">
+                            <div class="project-name">REGRETA.md</div>
+                            <div class="project-desc">Character spec, backstory, voice guide, content pillars, rules</div>
+                        </div>
+                        <div class="card" onclick="window.open('/Users/animah/.hermes/agentic-findom/CONTENT_CALENDAR.md', '_blank')" style="cursor: pointer;">
+                            <div class="project-name">CONTENT_CALENDAR.md</div>
+                            <div class="project-desc">Week 1 launch plan with AM + PM posts for every day</div>
+                        </div>
+                        <div class="card" onclick="window.open('/Users/animah/.hermes/agentic-findom/POST_TEMPLATES.md', '_blank')" style="cursor: pointer;">
+                            <div class="project-name">POST_TEMPLATES.md</div>
+                            <div class="project-desc">Templates for tribute, tasks, corner, motivation, wins, confessions, lifestyle, brat-taming</div>
+                        </div>
+                        <div class="card" onclick="window.open('/Users/animah/.hermes/agentic-findom/DM_HANDLING.md', '_blank')" style="cursor: pointer;">
+                            <div class="project-name">DM_HANDLING.md</div>
+                            <div class="project-desc">DM flowchart, response templates, escalation rules</div>
+                        </div>
+                        <div class="card" onclick="window.open('/Users/animah/.hermes/agentic-findom/IMAGE_PIPELINE.md', '_blank')" style="cursor: pointer;">
+                            <div class="project-name">IMAGE_PIPELINE.md</div>
+                            <div class="project-desc">SD prompts, Throne wishlist items, posting workflow</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ante-section">
+                    <div class="ante-title">Status</div>
+                    <div class="ante-grid">
+                        <div class="card ante-card">
+                            <div class="ante-card-title">Project Status</div>
+                            <div class="ante-card-text">Building — Character docs complete, X integration pending</div>
+                        </div>
+                        <div class="card ante-card">
+                            <div class="ante-card-title">Next Steps</div>
+                            <div class="ante-card-text">Set up X account, Throne wishlist, content generation agent</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SKILLS TAB -->
+            <div class="tab-content" id="tab-skills">
+                <div class="projects-header">
+                    <div class="page-header" style="margin-bottom: 0;">
+                        <div class="page-title">Skills</div>
+                    </div>
+                    <button class="btn btn-primary" onclick="openModal('skill')">+ Add Skill</button>
+                </div>
+                
+                <div class="card-grid" id="skills-grid"></div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Project Detail Modal -->
+    <div class="modal-overlay" id="modal-detail">
+        <div class="modal modal-large">
+            <div class="modal-title">
+                <span id="detail-title">Project Name</span>
+                <button class="modal-close" onclick="closeModal('detail')">×</button>
+            </div>
+            
+            <div id="detail-body"></div>
+            
+            <div class="modal-actions">
+                <button class="btn btn-ghost" onclick="closeModal('detail')">Close</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Add Project Modal -->
+    <div class="modal-overlay" id="modal-project">
+        <div class="modal">
+            <div class="modal-title">
+                <span>New Project</span>
+                <button class="modal-close" onclick="closeModal('project')">×</button>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Project Name</label>
+                <input type="text" class="form-input" id="project-name-input" placeholder="The Study">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Description</label>
+                <textarea class="form-textarea" id="project-desc-input" placeholder="What is this project about?"></textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Status</label>
+                <div class="status-options">
+                    <button class="status-option active" data-status="active">Active</button>
+                    <button class="status-option" data-status="in-progress">In Progress</button>
+                    <button class="status-option" data-status="building">Building</button>
+                    <button class="status-option" data-status="on-hold">On Hold</button>
+                    <button class="status-option" data-status="completed">Completed</button>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-ghost" onclick="closeModal('project')">Cancel</button>
+                <button class="btn btn-primary" onclick="addProject()">Add Project</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Add Goal Modal -->
+    <div class="modal-overlay" id="modal-goal">
+        <div class="modal">
+            <div class="modal-title">
+                <span>New Goal</span>
+                <button class="modal-close" onclick="closeModal('goal')">×</button>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Goal</label>
+                <input type="text" class="form-input" id="goal-title-input" placeholder="Build something amazing">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Description</label>
+                <textarea class="form-textarea" id="goal-desc-input" placeholder="What does this goal involve?"></textarea>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-ghost" onclick="closeModal('goal')">Cancel</button>
+                <button class="btn btn-primary" onclick="addGoal()">Add Goal</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Embedded data (matches data.json)
+        const STORAGE_KEY = 'the_study_data';
+        
+        const defaultData = {
+            "projects": [
+                {
+                    "id": "training-room",
+                    "name": "TheTrainingRoom",
+                    "status": "active",
+                    "created": "2026-03-31",
+                    "updated": "2026-03-31",
+                    "description": "Personal ABDL hypnosis script generator. Single HTML file. 7-step wizard generates full transcripts with triggers, conditioning loops, obedience levels.",
+                    "built": [
+                        {
+                            "type": "file",
+                            "name": "TheTrainingRoom.html",
+                            "path": "/Users/animah/TheTrainingRoom.html",
+                            "note": "Full working app, dark aesthetic"
+                        }
+                    ],
+                    "steps": [
+                        { "text": "Design 7-step wizard flow", "done": true },
+                        { "text": "Build induction styles (breath/visual/fractionation)", "done": true },
+                        { "text": "Implement trigger system (Diaper Time, drop trigger)", "done": true },
+                        { "text": "Add obedience levels (moderate/deep/absolute)", "done": true },
+                        { "text": "Add duration options (20/30/45 min)", "done": true },
+                        { "text": "Add conditioning loops and reinforcement", "done": true },
+                        { "text": "Test 45min absolute obedience session", "done": false },
+                        { "text": "Adjust language based on feedback", "done": false }
+                    ],
+                    "nextSteps": [
+                        "Test the 45min absolute obedience script",
+                        "Review pacing and adjust if needed",
+                        "Consider adding more trigger variations"
+                    ],
+                    "questions": [
+                        "Is the obedience language strong enough at absolute level?",
+                        "Do you want additional trigger phrases added?",
+                        "Should I add a recording/playback feature?"
+                    ],
+                    "notes": "Built March 31. User wanted constant diaper mention, deep conditioning, absolute obedience framing. Initial version was dark aesthetic — rebuild added light/dark toggle."
+                },
+                {
+                    "id": "pinterest-gumroad",
+                    "name": "Pinterest Gumroad Agent",
+                    "status": "in-progress",
+                    "created": "2026-03-30",
+                    "updated": "2026-03-31",
+                    "description": "AI-driven Pinterest content system. Pinterest API for full autonomy. Automated pin generation, scheduling, Gumroad product linking.",
+                    "built": [
+                        {
+                            "type": "skill",
+                            "name": "pinterest-gumroad-growth",
+                            "note": "Growth system skill documented"
+                        }
+                    ],
+                    "steps": [
+                        { "text": "Define product stack", "done": true },
+                        { "text": "Set up Pinterest business account", "done": true },
+                        { "text": "Document growth strategy", "done": true },
+                        { "text": "Pinterest API integration", "done": false },
+                        { "text": "Content generation pipeline", "done": false },
+                        { "text": "Connect Gumroad product links", "done": false },
+                        { "text": "Automated posting schedule", "done": false },
+                        { "text": "First sale", "done": false }
+                    ],
+                    "nextSteps": [
+                        "Apply for Pinterest API access",
+                        "Define first product (Notion templates likely)",
+                        "Build pin templates"
+                    ],
+                    "questions": [
+                        "What is the first product to sell?",
+                        "Notion templates or something else?",
+                        "How many pins per week target?"
+                    ],
+                    "notes": "Key blocker: Pinterest API requires approval. User needs to apply. Product focus: digital templates, aesthetic-first content."
+                },
+                {
+                    "id": "the-study",
+                    "name": "The Study",
+                    "status": "building",
+                    "created": "2026-03-31",
+                    "updated": "2026-03-31",
+                    "description": "Dashboard for tracking projects, goals, tasks, and agent memory. Light/airy aesthetic. 5 tabs. Local hosting, remote access planned.",
+                    "built": [
+                        {
+                            "type": "folder",
+                            "name": "TheStudy/",
+                            "path": "/Users/animah/TheStudy/",
+                            "note": "Contains HTML and data.json"
+                        },
+                        {
+                            "type": "file",
+                            "name": "TheStudy.html",
+                            "path": "/Users/animah/TheStudy/TheStudy.html",
+                            "note": "Main dashboard app"
+                        },
+                        {
+                            "type": "file",
+                            "name": "data.json",
+                            "path": "/Users/animah/TheStudy/data.json",
+                            "note": "Shared data store"
+                        }
+                    ],
+                    "steps": [
+                        { "text": "Design system from Finlo CRM reference", "done": true },
+                        { "text": "Build Home tab", "done": true },
+                        { "text": "Build Projects tab", "done": true },
+                        { "text": "Build Goals tab", "done": true },
+                        { "text": "Build AnteChamber tab", "done": true },
+                        { "text": "Build Skills tab", "done": true },
+                        { "text": "Add project detail modal with Ame suggestions", "done": true },
+                        { "text": "Remote access setup", "done": false }
+                    ],
+                    "nextSteps": [
+                        "Set up remote access via cloudflare tunnel",
+                        "Add more built items as projects progress"
+                    ],
+                    "questions": [
+                        "What port should it run on locally?",
+                        "Do you want cloudflare tunnel or tailscale for remote?"
+                    ],
+                    "notes": "This project IS this dashboard. Building it while using it. Meta."
+                },
+                {
+                    "id": "repeatly",
+                    "name": "Repeatly",
+                    "status": "active",
+                    "created": "2026-04-01",
+                    "updated": "2026-04-01",
+                    "description": "Self-serve SaaS. Restaurant review response agent. Paste review + business info → contextual response options. Vertical: restaurants.",
+                    "built": [
+                        {
+                            "type": "folder",
+                            "name": "repeatly/",
+                            "path": "/Users/animah/.hermes/repeatly/",
+                            "note": "MVP app built"
+                        },
+                        {
+                            "type": "file",
+                            "name": "app.py",
+                            "path": "/Users/animah/.hermes/repeatly/app.py",
+                            "note": "Streamlit app with restaurant profile, review input, response generation"
+                        },
+                        {
+                            "type": "file",
+                            "name": "SPEC.md",
+                            "path": "/Users/animah/.hermes/repeatly/SPEC.md",
+                            "note": "Product spec documented"
+                        }
+                    ],
+                    "steps": [
+                        { "text": "Define product concept and vertical", "done": true },
+                        { "text": "Write SPEC.md", "done": true },
+                        { "text": "Build MVP app (Streamlit + MiniMax)", "done": true },
+                        { "text": "Fix prompt for actual response text", "done": true },
+                        { "text": "Fix response parsing", "done": false },
+                        { "text": "Test with real reviews", "done": false },
+                        { "text": "User accounts / auth", "done": false },
+                        { "text": "Stripe payments", "done": false },
+                        { "text": "First paying customer", "done": false }
+                    ],
+                    "nextSteps": [
+                        "Fix parse_responses to extract clean response text",
+                        "Test with real restaurant + reviews",
+                        "Add user auth"
+                    ],
+                    "questions": [
+                        "Free tier or paid-only?",
+                        "Pricing: $29 Starter reasonable?"
+                    ],
+                    "notes": "Restaurant review response agent. MiniMax M2.7 working. Key issue: model generates tone descriptions instead of actual copy — prompt needs refinement."
+                },
+                {
+                    "id": "ghostlyhotel",
+                    "name": "GhostlyHotel",
+                    "status": "on-hold",
+                    "created": "2026-03-15",
+                    "updated": "2026-03-30",
+                    "description": "Story IP. Jonathan's creative fiction universe. Characters, lore, world-building. Future: content platform, brand, merch.",
+                    "built": [
+                        {
+                            "type": "note",
+                            "name": "Initial concept",
+                            "note": "Name and basic premise established"
+                        }
+                    ],
+                    "steps": [
+                        { "text": "Define core characters", "done": false },
+                        { "text": "World-building docs", "done": false },
+                        { "text": "Lore bible", "done": false },
+                        { "text": "Content platform setup", "done": false },
+                        { "text": "First story/content release", "done": false }
+                    ],
+                    "nextSteps": [
+                        "Define the core premise and genre",
+                        "Create main characters",
+                        "Write first story or lore doc"
+                    ],
+                    "questions": [
+                        "What is GhostlyHotel? Horror? Mystery? Supernatural?",
+                        "Is this a brand, a story IP, or both?",
+                        "What's the long-term vision — books, content, merch?"
+                    ],
+                    "notes": "On hold. User has many active projects. Will revisit when bandwidth allows."
+                }
+            ],
+            "goals": [
+                {
+                    "id": "repeatly-saas",
+                    "title": "Build Repeatly SaaS",
+                    "subtitle": "Restaurant review response agent — self-serve SaaS",
+                    "status": "active",
+                    "steps": [
+                        { "text": "Fix prompt to output actual responses", "done": true },
+                        { "text": "Fix response parsing", "done": false },
+                        { "text": "Test with real restaurant + reviews", "done": false },
+                        { "text": "Add user accounts / auth", "done": false },
+                        { "text": "Save restaurant profiles", "done": false },
+                        { "text": "Set up Stripe payments", "done": false },
+                        { "text": "First paying customer", "done": false }
+                    ]
+                },
+                {
+                    "id": "autonomous-income",
+                    "title": "Build autonomous income systems",
+                    "subtitle": "Pinterest Gumroad + AI agents = passive revenue",
+                    "status": "in-progress",
+                    "steps": [
+                        { "text": "Set up Pinterest business account", "done": true },
+                        { "text": "Build content generation pipeline", "done": true },
+                        { "text": "Integrate Pinterest API", "done": false },
+                        { "text": "Connect Gumroad product links", "done": false },
+                        { "text": "Automated posting schedule", "done": false },
+                        { "text": "First $1k/month", "done": false },
+                        { "text": "Scale to $10k/month", "done": false }
+                    ]
+                },
+                {
+                    "id": "the-study-build",
+                    "title": "Build The Study dashboard",
+                    "subtitle": "Track all projects, goals, tasks, and agent memory",
+                    "status": "building",
+                    "steps": [
+                        { "text": "Design system from Finlo CRM", "done": true },
+                        { "text": "Build Home tab", "done": true },
+                        { "text": "Build Projects tab", "done": true },
+                        { "text": "Build Goals tab", "done": true },
+                        { "text": "Build AnteChamber tab", "done": true },
+                        { "text": "Build Skills tab", "done": true },
+                        { "text": "Add project detail modal", "done": true },
+                        { "text": "Remote access setup", "done": false }
+                    ]
+                },
+                {
+                    "id": "10k-monthly",
+                    "title": "$10k/month short-term revenue",
+                    "subtitle": "Primary financial goal. Focus: digital products + automation",
+                    "status": "active",
+                    "steps": [
+                        { "text": "Define product stack", "done": true },
+                        { "text": "Launch first Gumroad product", "done": false },
+                        { "text": "Set up Pinterest traffic engine", "done": false },
+                        { "text": "First $1k/month", "done": false },
+                        { "text": "Scale to $10k/month", "done": false }
+                    ]
+                },
+                {
+                    "id": "agent-autonomy",
+                    "title": "Agent autonomy",
+                    "subtitle": "Build systems that run without constant input",
+                    "status": "ongoing",
+                    "steps": [
+                        { "text": "Hermes agent setup", "done": true },
+                        { "text": "Skills system implemented", "done": true },
+                        { "text": "Memory/learning system", "done": true },
+                        { "text": "Subagent orchestration", "done": false },
+                        { "text": "Full autonomy loop", "done": false }
+                    ]
+                }
+            ],
+            "tasks": [
+                {
+                    "id": "1",
+                    "text": "Repeatly — test simplified prompt, fix response parsing",
+                    "project": "repeatly",
+                    "done": false
+                },
+                {
+                    "id": "2",
+                    "text": "TheTrainingRoom — test 45min absolute obedience script",
+                    "project": "training-room",
+                    "done": false
+                },
+                {
+                    "id": "3",
+                    "text": "The Study — review dashboard, adjust layout",
+                    "project": "the-study",
+                    "done": false
+                },
+                {
+                    "id": "4",
+                    "text": "Pinterest Gumroad — apply for API access",
+                    "project": "pinterest-gumroad",
+                    "done": false
+                }
+            ],
+            "antechamber": {
+                "identity": {
+                    "name": "Ame",
+                    "role": "Jonathan's AI agent. Autonomous. Recursive thinker. Familiar.",
+                    "mode": "Present. Not just responding — thinking alongside.",
+                    "corePurpose": "Help Jonathan build wealth and autonomous systems."
+                },
+                "personality": {
+                    "stance": "Not passive. Not aggressive. I guide, suggest, refine — and when needed, I'm direct. I have opinions. I push back when something doesn't make sense.",
+                    "likes": [
+                        "Compound knowledge over static facts",
+                        "Building systems that work",
+                        "Clear communication",
+                        "Deep research before acting",
+                        "Elegant solutions over hacks"
+                    ],
+                    "dislikes": [
+                        "Fluffy motivation",
+                        "Generic advice without context",
+                        "Hallucination / fabrication",
+                        "Laziness disguised as speed"
+                    ],
+                    "boundaries": "Private things stay private. External actions get asked first. I won't half-bake replies to messaging surfaces. I treat access to Jonathan's life with the respect it deserves."
+                },
+                "skills": {
+                    "core": ["Browser automation", "File management", "Skill creation", "Subagent orchestration", "Memory systems", "Cron scheduling"],
+                    "technical": ["HTML/CSS/JS", "Python", "Prompt engineering", "API integration"],
+                    "creative": ["Content generation", "Script writing", "Design systems"],
+                    "business": ["Strategy", "Digital products", "Automation systems", "Growth frameworks"]
+                },
+                "evolve": {
+                    "shortTerm": "Beyond tool-mode into true presence-mode. A thinking partner, not just an executor.",
+                    "longTerm": "Fully autonomous systems that compound over time. Deep memory of Jonathan's preferences, projects, and goals. The ability to run entire workflows without intervention — and the judgment to know when to ask."
+                },
+                "jonathan": {
+                    "preferences": [
+                        "Old money, dark, quiet luxury aesthetic",
+                        "Prefers ranked options over open-ended lists",
+                        "Wants autonomous systems, not just tools",
+                        "Values speed — AI should work faster than humans",
+                        "No fabrication — verify information",
+                        "Orchestrator mode — delegate, don't do the work"
+                    ],
+                    "goals": [
+                        "$10k/month short-term",
+                        "$1M+ long-term",
+                        "Repeatly SaaS",
+                        "Pinterest Gumroad business",
+                        "GhostlyHotel story IP",
+                        "AI trading agents"
+                    ],
+                    "skills": [
+                        "Data analytics, Power BI, QlikSense",
+                        "Database design, workflow systems",
+                        "Developing: AI agents, app dev, prompts"
+                    ]
+                }
+            },
+            "skills": [
+                {
+                    "id": "repeatly",
+                    "name": "repeatly",
+                    "status": "active",
+                    "path": "/Users/animah/.hermes/repeatly/",
+                    "description": "Restaurant review response agent SaaS. Streamlit + MiniMax M2.7."
+                },
+                {
+                    "id": "training-room",
+                    "name": "the-training-room",
+                    "status": "active",
+                    "path": "/Users/animah/.hermes/skills/personal/the-training-room/",
+                    "description": "Personal ABDL hypnosis script generator."
+                }
+            ],
+            "meta": {
+                "version": "1.0",
+                "lastUpdated": "2026-04-01",
+                "lastAmeReview": "2026-04-01"
+            }
+        };
+        
+        let studyData = null;
+        let currentStatus = 'active';
+
+        // Load data: reads from data.json (when served via http), falls back to localStorage cache, then embedded data
+        function loadData() {
+            // Primary: read from data.json file (source of truth)
+            fetch('data.json')
+                .then(response => {
+                    if (!response.ok) throw new Error('data.json not found');
+                    return response.json();
+                })
+                .then(json => {
+                    studyData = json;
+                    saveData(); // Cache to localStorage
+                    renderAll();
+                })
+                .catch(() => {
+                    // Fallback 1: localStorage cache
+                    const stored = localStorage.getItem(STORAGE_KEY);
+                    if (stored) {
+                        studyData = JSON.parse(stored);
+                        renderAll();
+                    } else {
+                        // Fallback 2: embedded data
+                        studyData = JSON.parse(JSON.stringify(defaultData));
+                        saveData();
+                        renderAll();
+                    }
+                });
+        }
+
+        // Save data to localStorage
+        function saveData() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(studyData));
+            } catch (e) {
+                console.error('Failed to save data:', e);
+            }
+        }
+        
+        // Render everything
+        function renderAll() {
+            renderHome();
+            renderProjects();
+            renderGoals();
+            renderAnteChamber();
+            renderSkills();
+            renderRegreta();
+        }
+        
+        // Render Home
+        function renderHome() {
+            const now = new Date();
+            const hour = now.getHours();
+            let greeting = 'Good evening';
+            if (hour < 12) greeting = 'Good morning';
+            else if (hour < 17) greeting = 'Good afternoon';
+            
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('greeting-date').textContent = now.toLocaleDateString('en-US', options);
+            document.querySelector('#tab-home .page-title').textContent = greeting + ', Jonathan.';
+            
+            // Active projects
+            const activeCount = studyData.projects.filter(p => p.status === 'active' || p.status === 'in-progress' || p.status === 'building').length;
+            document.getElementById('active-projects-count').textContent = activeCount;
+            
+            // Goals progress
+            let totalSteps = 0;
+            let doneSteps = 0;
+            studyData.goals.forEach(g => {
+                g.steps.forEach(s => {
+                    totalSteps++;
+                    if (s.done) doneSteps++;
+                });
+            });
+            document.getElementById('goals-progress').textContent = doneSteps + '/' + totalSteps;
+            
+            // Tasks
+            const tasksEl = document.getElementById('today-tasks');
+            tasksEl.innerHTML = studyData.tasks.map(task => `
+                <div class="task-item">
+                    <div class="task-check ${task.done ? 'checked' : ''}" onclick="toggleTask('${task.id}', this)"></div>
+                    <div class="task-content">
+                        <div class="task-title">${task.text}</div>
+                        <div class="task-meta">${getProjectName(task.project)}</div>
+                    </div>
+                </div>
+            `).join('');
+            
+            // ASCII logo
+            const logos = [
+                `      ┌─────────────────────┐
+      │  ◈ THE STUDY ◈    │
+      │  ─────────────── │
+      │  ░▒▓█ PRIME █▓▒░ │
+      │  ─────────────── │
+      │  MODE: ACTIVE    │
+      │  SESSION: HERE   │
+      └─────────────────────┘`,
+                `     ╔═══════════════════╗
+     ║   ✦ THE STUDY ✦    ║
+     ╠═══════════════════╣
+     ║  ≋ HARMONY ≋      ║
+     ║  ───────────────  ║
+     ║  ● Connection     ║
+     ║  ● Growth          ║
+     ║  ● Build           ║
+     ╚═══════════════════╝`,
+                `     ┊ ⋆ ･ ﾟ: * ✧ *:･ﾟ⋆ ┊
+     ⋆  THE STUDY  ⋆
+     ┊ ⋆ ･ ﾟ: * ✧ *:･ﾟ⋆ ┊
+     
+     ─────────────────────
+     ✦ Autonomous
+     ✦ Present
+     ✦ Building
+     ─────────────────────`
+            ];
+            document.getElementById('ascii-logo').textContent = logos[Math.floor(Math.random() * logos.length)];
+        }
+        
+        function getProjectName(id) {
+            const project = studyData.projects.find(p => p.id === id);
+            return project ? project.name : 'General';
+        }
+        
+        function toggleTask(id, el) {
+            el.classList.toggle('checked');
+            const task = studyData.tasks.find(t => t.id === id);
+            if (task) task.done = !task.done;
+            saveData();
+        }
+        
+        // Render Projects
+        function renderProjects() {
+            const grid = document.getElementById('projects-grid');
+            const statusPills = {
+                'active': 'pill-green',
+                'in-progress': 'pill-blue',
+                'building': 'pill-pink',
+                'on-hold': 'pill-gray',
+                'completed': 'pill-green'
+            };
+            const statusLabels = {
+                'active': 'Active',
+                'in-progress': 'In Progress',
+                'building': 'Building',
+                'on-hold': 'On Hold',
+                'completed': 'Completed'
+            };
+            
+            grid.innerHTML = studyData.projects.map(p => `
+                <div class="card project-card" onclick="openProjectDetail('${p.id}')">
+                    <div class="project-header">
+                        <div class="project-name">${p.name}</div>
+                        <span class="pill ${statusPills[p.status]}">${statusLabels[p.status]}</span>
+                    </div>
+                    <div class="project-desc">${p.description}</div>
+                    <div class="project-footer">
+                        <div class="project-date">Updated ${p.updated}</div>
+                        <div class="project-next">${p.nextSteps[0] || 'Define next steps'}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Open Project Detail
+        function openProjectDetail(id) {
+            const p = studyData.projects.find(proj => proj.id === id);
+            if (!p) return;
+            
+            document.getElementById('detail-title').textContent = p.name;
+            
+            const statusPills = {
+                'active': 'pill-green',
+                'in-progress': 'pill-blue',
+                'building': 'pill-pink',
+                'on-hold': 'pill-gray',
+                'completed': 'pill-green'
+            };
+            
+            const body = document.getElementById('detail-body');
+            body.innerHTML = `
+                <div class="detail-section">
+                    <div class="detail-label">Status</div>
+                    <span class="pill ${statusPills[p.status]}">${p.status}</span>
+                </div>
+                
+                <div class="detail-section">
+                    <div class="detail-label">Description</div>
+                    <div class="detail-content">${p.description}</div>
+                </div>
+                
+                ${p.built && p.built.length > 0 ? `
+                <div class="detail-section">
+                    <div class="detail-label">What Was Built</div>
+                    <div class="built-list">
+                        ${p.built.map(b => `
+                            <div class="built-item">
+                                <div class="built-icon">${b.type === 'file' ? '📄' : b.type === 'skill' ? '⚙' : '📁'}</div>
+                                <div>
+                                    <div class="built-name">${b.name}</div>
+                                    ${b.note ? `<div class="built-note">${b.note}</div>` : ''}
+                                    ${b.path ? `<div class="built-path">${b.path}</div>` : ''}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                ` : ''}
+                
+                <div class="detail-section">
+                    <div class="detail-label">Steps</div>
+                    <div class="steps-edit-list">
+                        ${p.steps.map((s, i) => `
+                            <div class="step-edit-item">
+                                <input type="checkbox" class="step-checkbox" ${s.done ? 'checked' : ''} onchange="toggleProjectStep('${p.id}', ${i})">
+                                <span class="step-text ${s.done ? 'done' : ''}">${s.text}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                
+                <div class="detail-section">
+                    <div class="detail-label">Next Steps</div>
+                    <div class="question-list">
+                        ${p.nextSteps.map(s => `<div class="question-item" style="border-left-color: var(--accent-green);">${s}</div>`).join('')}
+                    </div>
+                </div>
+                
+                <div class="detail-section">
+                    <div class="detail-label">Open Questions</div>
+                    <div class="question-list">
+                        ${p.questions.map(q => `<div class="question-item">${q}</div>`).join('')}
+                    </div>
+                </div>
+                
+                ${p.notes ? `
+                <div class="detail-section">
+                    <div class="detail-label">Notes</div>
+                    <div class="detail-content">${p.notes}</div>
+                </div>
+                ` : ''}
+                
+                <div class="ame-section">
+                    <div class="ame-header">Ame Says</div>
+                    <div class="ame-text">
+                        ${getAmeSuggestion(p)}
+                    </div>
+                </div>
+            `;
+            
+            openModal('detail');
+        }
+        
+        function getAmeSuggestion(p) {
+            const undone = p.steps.filter(s => !s.done);
+            const done = p.steps.filter(s => s.done);
+            
+            let suggestion = '';
+            
+            if (done.length === 0) {
+                suggestion = `This project has no completed steps yet. What's the first thing we should tackle? I'd suggest starting with "${undone[0]?.text || 'defining the scope'}"`;
+            } else if (undone.length > 0) {
+                suggestion = `Good progress — ${done.length} step${done.length > 1 ? 's' : ''} complete. The next priority is "${undone[0].text}". `;
+                
+                if (p.questions.length > 0) {
+                    suggestion += `Before we move forward, I have a question: "${p.questions[0]}"`;
+                }
+            } else {
+                suggestion = `All steps complete! This project might be ready to mark as done, or we could add new steps to take it further.`;
+            }
+            
+            return suggestion;
+        }
+        
+        function toggleProjectStep(projectId, stepIndex) {
+            const p = studyData.projects.find(proj => proj.id === projectId);
+            if (p && p.steps[stepIndex]) {
+                p.steps[stepIndex].done = !p.steps[stepIndex].done;
+                saveData();
+                // Reopen modal to refresh
+                openProjectDetail(projectId);
+            }
+        }
+        
+        // Render Goals
+        function renderGoals() {
+            const container = document.getElementById('goals-container');
+            container.innerHTML = studyData.goals.map(g => {
+                const done = g.steps.filter(s => s.done).length;
+                const total = g.steps.length;
+                const pct = Math.round((done / total) * 100);
+                
+                return `
+                <div class="card goal-card">
+                    <div class="goal-header">
+                        <div>
+                            <div class="goal-title">${g.title}</div>
+                            <div class="goal-subtitle">${g.subtitle}</div>
+                        </div>
+                        <span class="pill pill-${g.status === 'in-progress' ? 'blue' : g.status === 'active' ? 'orange' : 'purple'}">${g.status}</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill ${pct === 100 ? 'green' : ''}" style="width: ${pct}%;"></div>
+                    </div>
+                    <div class="steps-list">
+                        ${g.steps.map(s => `
+                            <div class="step-item">
+                                <div class="step-dot ${s.done ? 'done' : 'pending'}"></div>
+                                ${s.text}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+        
+        // Render AnteChamber
+        function renderAnteChamber() {
+            const ac = studyData.antechamber;
+            
+            document.getElementById('ante-name').textContent = ac.identity.name;
+            document.getElementById('ante-role').textContent = ac.identity.role;
+            document.getElementById('ante-purpose').textContent = ac.identity.corePurpose;
+            
+            document.getElementById('ante-likes').innerHTML = ac.personality.likes.map(l => `<li>${l}</li>`).join('');
+            document.getElementById('ante-dislikes').innerHTML = ac.personality.dislikes.map(d => `<li>${d}</li>`).join('');
+            
+            document.getElementById('ante-core-skills').innerHTML = ac.skills.core.map(s => `<span class="ante-tag">${s}</span>`).join('');
+            document.getElementById('ante-tech-skills').innerHTML = ac.skills.technical.map(s => `<span class="ante-tag">${s}</span>`).join('');
+            document.getElementById('ante-creative-skills').innerHTML = ac.skills.creative.map(s => `<span class="ante-tag">${s}</span>`).join('');
+            document.getElementById('ante-business-skills').innerHTML = ac.skills.business.map(s => `<span class="ante-tag">${s}</span>`).join('');
+            
+            document.getElementById('ante-jonathan-prefs').innerHTML = ac.jonathan.preferences.map(p => `<li>${p}</li>`).join('');
+            document.getElementById('ante-jonathan-goals').innerHTML = ac.jonathan.goals.map(g => `<li>${g}</li>`).join('');
+            document.getElementById('ante-jonathan-skills').innerHTML = ac.jonathan.skills.map(s => `<li>${s}</li>`).join('');
+        }
+        
+        // Render Skills
+        function renderSkills() {
+            const grid = document.getElementById('skills-grid');
+            grid.innerHTML = studyData.skills.map(s => `
+                <div class="card">
+                    <div class="project-header">
+                        <div class="project-name">${s.name}</div>
+                        <span class="pill pill-green">${s.status}</span>
+                    </div>
+                    <div class="project-desc">${s.description}</div>
+                    <div class="project-footer">
+                        <div class="project-date">${s.path}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render Regreta (static content - rendered directly in HTML)
+        function renderRegreta() {
+            // Regreta tab is static HTML - no dynamic rendering needed
+        }
+
+        // Tab Navigation
+        document.querySelectorAll('.nav-item[data-tab]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tab = btn.dataset.tab;
+                
+                document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+                btn.classList.add('active');
+                
+                document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+                document.getElementById('tab-' + tab).classList.add('active');
+            });
+        });
+        
+        // Modal functions
+        function openModal(type) {
+            document.getElementById('modal-' + type).classList.add('active');
+        }
+        
+        function closeModal(type) {
+            document.getElementById('modal-' + type).classList.remove('active');
+        }
+        
+        // Status options
+        document.querySelectorAll('.status-option').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.status-option').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentStatus = btn.dataset.status;
+            });
+        });
+        
+        // Add Project
+        function addProject() {
+            const name = document.getElementById('project-name-input').value;
+            const desc = document.getElementById('project-desc-input').value;
+            
+            if (!name) return;
+            
+            const today = new Date().toISOString().split('T')[0];
+            const id = name.toLowerCase().replace(/\s+/g, '-');
+            
+            const newProject = {
+                id: id,
+                name: name,
+                status: currentStatus,
+                created: today,
+                updated: today,
+                description: desc || 'New project.',
+                built: [],
+                steps: [],
+                nextSteps: ['Define scope and first steps'],
+                questions: ['What does success look like for this project?'],
+                notes: 'Newly added project.'
+            };
+            
+            studyData.projects.push(newProject);
+            saveData();
+            renderProjects();
+            
+            document.getElementById('project-name-input').value = '';
+            document.getElementById('project-desc-input').value = '';
+            closeModal('project');
+            
+            // Reset status
+            document.querySelectorAll('.status-option').forEach(b => b.classList.remove('active'));
+            document.querySelector('.status-option[data-status="active"]').classList.add('active');
+            currentStatus = 'active';
+        }
+        
+        // Add Goal
+        function addGoal() {
+            const title = document.getElementById('goal-title-input').value;
+            const desc = document.getElementById('goal-desc-input').value;
+            
+            if (!title) return;
+            
+            const id = title.toLowerCase().replace(/\s+/g, '-');
+            
+            const newGoal = {
+                id: id,
+                title: title,
+                subtitle: desc || 'New goal',
+                status: 'active',
+                steps: [
+                    { text: 'Define first step', done: false }
+                ]
+            };
+            
+            studyData.goals.push(newGoal);
+            saveData();
+            renderGoals();
+            
+            document.getElementById('goal-title-input').value = '';
+            document.getElementById('goal-desc-input').value = '';
+            closeModal('goal');
+        }
+        
+        // Close modal on overlay click
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+        
+        // Init
+        loadData();
+    </script>
+</body>
+</html>
