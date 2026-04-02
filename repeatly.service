@@ -1,0 +1,14 @@
+[Unit]
+Description=Repeatly Streamlit App
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/repeatly
+ExecStart=/root/venvs/repeatly/bin/streamlit run /root/repeatly/app.py --server.port=3002 --server.address=127.0.0.1 --server.headless=true
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
