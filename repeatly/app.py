@@ -151,7 +151,7 @@ def generate_responses(prompt: str) -> str:
     }
 
     try:
-        response = requests.post(API_URL, headers=headers, json=payload, timeout=30)
+        response = requests.post(API_URL, headers=headers, json=payload, timeout=120)
 
         # If error, include the actual error message
         if response.status_code >= 400:
