@@ -172,15 +172,9 @@ def generate_responses(prompt: str) -> str:
         # MiniMax/M2.7 returns content as a list of blocks
         # Blocks can have type="text" with actual response, type="thinking" with reasoning
         if "content" in data and isinstance(data["content"], list):
-            # First, try to find a text block with the actual response
             for block in data["content"]:
                 if block.get("type") == "text" and block.get("text"):
                     return block["text"]
-
-            # Fall back to thinking block if no text found
-            for block in data["content"]:
-                if block.get("thinking"):
-                    return block["thinking"]
 
         return f"Error: Unexpected response format: {str(data)[:2000]}"
 
